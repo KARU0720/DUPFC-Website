@@ -1,11 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUPFC WEBSITE</title>
+    <title>Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .gradient-bg {
+            background: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+        .form-input {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 1px #4CAF50;
+        }
+
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #4CAF50;
+        }
+
+        .form-radio:checked {
+            background-color: #4CAF50;
+        }
+
+        .form-radio:checked:focus {
+            box-shadow: 0 0 0 2px #4CAF50;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+        }
+
+        .btn-primary:hover {
+            background-color: #2E8B57;
+        }
+
+        /* Additional styles for logos */
+        .logo-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10; /* Ensure it's on top of other content */
+            margin: 20px; /* Adjust margin as needed */
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem; /* Adjust margin as needed */
+        }
+
+        .logos-container img {
+            width: 80px; /* Adjust the size of the smaller logos */
+            margin: 0 1rem; /* Adjust margin between logos */
+        }
+
+        .logo-main img {
+            width: 300px; /* Adjust the size of the main logo */
+        }
+
+        /* Adjust form container */
+        .form-container {
+            margin-top: 20px; /* Adjust the top margin to avoid overlap */
+        }
+
+        /* Table styles */
+        .registration-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .registration-table th,
+        .registration-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center; /* Center align text */
+            font-size: 14px;
+        }
+
+        .registration-table th {
+            background-color: #f2f2f2;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .registration-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Background image */
+        body {
+            background-image: url('BACKGROUND.png');
+            background-size: cover; /* Adjust to cover the entire background */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Ensures the background image stays fixed as you scroll */
+            background-position: center center;
+            background-color: #f0f0f0; /* Fallback color if image is not available */
+        }
+    </style>
 </head>
-<body>
-    <p>Pwet</p>
+
+<body class="bg-gray-100">
+    <!-- LOGO with Name placed separately -->
+    <div class="logo-main">
+        <img src="LOGO with Name.png" alt="Team Logo with Name">
+    </div>
+
+    <!-- Logos at the bottom -->
+    <div class="logos-container mt-8 mb-4">
+        <img src="DLSU-D LOGO.png" alt="DLSU-D Logo" class="w-16">
+        <img src="CSO LOGO.png" alt="CSO Logo" class="w-16">
+        <img src="DLSU-D UNITED PATRIOTS NEW LOGO.png" alt="Team Logo without Name" class="w-16">
+    </div>
+
+    <div class="container mx-auto py-8 px-4">
+        <!-- Registration Form -->
+        <div class="form-container bg-white shadow-md rounded-lg p-8 mb-8">
+            <h2 class="text-3xl mb-6 text-center font-bold text-gray-800">Registration Form</h2>
+            <form id="registrationForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="lastname" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" class="form-input mt-1 block w-full rounded-md shadow-sm" id="lastname"
+                            placeholder="e.g., Smith" required>
+                    </div>
+                    <div>
+                        <label for="firstname" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" class="form-input mt-1 block w-full rounded-md shadow-sm" id="firstname"
+                            placeholder="e.g., John" required>
+                    </div>
+                    <div>
+                        <label for="middlename" class="block text-sm font-medium text-gray-700">Middle Name</label>
+                        <input type="text" class="form-input mt-1 block w-full rounded-md shadow-sm" id="middlename"
+                            placeholder="e.g., Robert">
+                    </div>
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                        <div class="mt-1">
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio h-4 w-4 text-blue-600" name="status" value="Old"
+                                    required>
+                                <span class="ml-2 text-gray-700">Old</span>
+                            </label>
+                            <label class="inline-flex items-center ml-6">
+                                <input type="radio" class="form-radio h-4 w-4 text-blue-600" name="status" value="New"
+                                    required>
+                                <span class="ml-2 text-gray-700">New</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="college" class="block text-sm font-medium text-gray-700">College</label>
+                        <select class="form-select mt-1 block w-full rounded-md shadow-sm" id="college" required>
+                            <option value="">Select College</option>
+                            <option value="CBAA">College of Business Administration and Accountancy</option>
+                            <option value="CCJE">College of Criminal Justice Education</option>
+                            <option value="COED">College of Education</option>
+                            <option value="CEAT">College of Engineering, Architecture and Technology</option>
+                            <option value="CLAC">College of Liberal Arts and Communication</option>
+                            <option value="CSCS">College of Science and Computer Studies</option>
+                            <option value="CTHM">College of Tourism and Hospitality Management</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="course" class="block text-sm font-bold mb-2">Course</label>
+                        <select class="form-select" id="course" required>
+                            <!-- Courses will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="year" class="block text-sm font-medium text-gray-700">Year</label>
+                        <select class="form-select mt-1 block w-full rounded-md shadow-sm" id="year" required>
+                            <option value="">Select Year</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                            <option value="5">5th Year</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="section" class="block text-sm font-medium text-gray-700">Section</label>
+                        <select class="form-select mt-1 block w-full rounded-md shadow-sm" id="section" required>
+                            <option value="">Select Section</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cys" class="block text-sm font-medium text-gray-700">CYS (Course Year
+                            Section)</label>
+                        <input type="text" class="form-input mt-1 block w-full rounded-md shadow-sm" id="cys"
+                            placeholder="e.g., BIT32" required>
+                    </div>
+                    <div>
+                        <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student
+                            Number</label>
+                        <input type="text" class="form-input mt-1 block w-full rounded-md shadow-sm"
+                            id="studentNumber" placeholder="e.g., xxxx-xxxxx" required>
+                    </div>
+                    <div>
+                        <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact
+                            Number</label>
+                        <input type="text" class="form-input mt-1 block w-full rounded-md shadow-sm"
+                            id="contactNumber" placeholder="e.g., xxxx xxx xxxx" required>
+                    </div>
+                    <div>
+                        <label for="emailAddress" class="block text-sm font-medium text-gray-700">Email
+                            Address</label>
+                        <input type="email" class="form-input mt-1 block w-full rounded-md shadow-sm"
+                            id="emailAddress" placeholder="e.g., xxxx0000@dlsud.edu.ph" required>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="btn btn-primary bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full mt-6 w-full md:w-auto">Register</button>
+            </form>
+        </div>
+
+        <!-- Registration Table -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="registration-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">College</th>
+                        <th scope="col">CYS</th>
+                        <th scope="col">Student Number</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Email Address</th>
+                    </tr>
+                </thead>
+                <tbody id="registrationTable">
+                    <!-- Registration entries will be appended here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
