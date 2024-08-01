@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLSU-D United Patriots - Records</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="DLSU-D UNITED PATRIOTS NEW LOGO.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .form-input {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 1px #4CAF50;
+        }
+        .btn-primary {
+            background-color: #247011;
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background-color: #007f00;
+        }
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #247011;
+            border: 1px solid #247011;
+        }
+        .btn-secondary:hover {
+            background-color: #f0f0f0;
+        }
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #4CAF50;
+        }
+
+        .form-radio:checked {
+            background-color: #4CAF50;
+        }
+
+        .form-radio:checked:focus {
+            box-shadow: 0 0 0 2px #4CAF50;
+        }
+        /* Additional styles for logos */
+        .logo-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            margin: 20px;
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .logos-container img {
+            width: 80px;
+            margin: 0 1rem;
+        }
+
+        .logo-main img {
+            width: 300px;
+        }
+
+        /* Adjust form container */
+        .form-container {
+            margin-top: 10px;
+        }
+
+        /* Table styles */
+        .registration-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .registration-table th,
+        .registration-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .registration-table th {
+            background-color: #f2f2f2;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .registration-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Background image */
+        body {
+            background-image: url('BACKGROUND.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-color: #f0f0f0;
+        }
+
+        /* Add margin to main content to account for the fixed navbar */
+        .main-content {
+            margin-top: 140px; /* Adjust this value based on the height of your navbar */
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="flex flex-wrap items-center justify-between mx-auto p-4">
+            <!-- Logo Section -->
+            <a href="home.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="LOGO with Name.png" class="h-20" alt="DUPFC Logo">
+            </a>
+    
+            <!-- Navigation Links -->
+            <div class="hidden md:flex md:w-auto md:ml-auto">
+                <ul class="flex space-x-8 rtl:space-x-reverse p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="records.html" class="block py-2 px-3 text-white bg-fc rounded md:bg-transparent md:text-green-600 md:p-0 md:dark:text-green-600" aria-current="page">Records</a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Registration Table -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4">
+            <table class="registration-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">College</th>
+                        <th scope="col">CYS</th>
+                        <th scope="col">Student Number</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Birthday</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Position</th>
+                    </tr>
+                </thead>
+                <tbody id="registrationTable">
+                    <!-- Registration entries will be appended here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        // Function to fetch records and populate the table
+        async function fetchRecords() {
+            try {
+                const response = await fetch('http://localhost:3000/registrations'); // Adjust URL as needed
+                const data = await response.json();
+                
+                const tableBody = document.getElementById('registrationTable');
+                tableBody.innerHTML = ''; // Clear any existing content
+
+                data.forEach(record => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${record.dateAdded}</td>
+                        <td>${record.fullName}</td>
+                        <td>${record.status}</td>
+                        <td>${record.college}</td>
+                        <td>${record.cys}</td>
+                        <td>${record.studentNumber}</td>
+                        <td>${record.contactNumber}</td>
+                        <td>${record.emailAddress}</td>
+                        <td>${record.birthday}</td>
+                        <td>${record.role}</td>
+                        <td>${record.position}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching records:', error);
+            }
+        }
+
+        // Fetch records when the page loads
+        window.onload = fetchRecords;
+    </script>
+</body>
+</html>

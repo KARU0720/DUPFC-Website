@@ -1,0 +1,112 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.back {
+    background: linear-gradient(120deg, #643986, #98aed5);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.registration-form {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    top: 15%;
+    background: transparent;
+}
+
+.registration-form header {
+    position: relative;
+    z-index: 4;
+    background: white;
+    padding: 20px 40px;
+    border-radius: 15px 15px 0 0;
+}
+
+.registration-form header h1 {
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #333;
+    font-size: 23px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.registration-form header p {
+    word-spacing: 0px;
+    color: #9facb6;
+    font-size: 17px;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.registration-form form {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+.registration-form .input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.registration-form .input-section label {
+    font-size: 14px;
+    color: #333;
+}
+
+.registration-form .input-section input,
+.registration-form .input-section select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.registration-form .input-section input:focus,
+.registration-form .input-section select:focus {
+    border-color: #643986;
+    outline: none;
+}
+
+.registration-form .input-section button {
+    background-color: #643986;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.registration-form .input-section button:hover {
+    background-color: #53317b;
+}
+
+.registration-form .login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.registration-form .login-link a {
+    color: #643986;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.registration-form .login-link a:hover {
+    color: #53317b;
+}
