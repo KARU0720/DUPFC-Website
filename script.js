@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const roleSelect = document.getElementById('role');
     const positionSelect = document.getElementById('position');
     const membershipForm = document.getElementById('membershipForm');
+    const registrationTable = document.getElementById('registrationTable');
 
     const courses = {
         'CBAA': [
@@ -125,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 option.textContent = course;
                 courseSelect.appendChild(option);
             });
+        } else {
+            courseSelect.innerHTML = '<option value="">No Courses Available</option>';
         }
     }
 
@@ -140,6 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 option.textContent = position;
                 positionSelect.appendChild(option);
             });
+        } else {
+            positionSelect.innerHTML = '<option value="">No Positions Available</option>';
         }
     }
 
@@ -147,35 +152,33 @@ document.addEventListener('DOMContentLoaded', function() {
         populatePositions(this.value);
     });
 
-        // Populate existing data on page load
-        function populateTable() {
-            const registrations = JSON.parse(localStorage.getItem('registrations')) || [];
-            registrationTable.innerHTML = '';
-            registrations.forEach(entry => {
-                const row = document.createElement('tr');
-                const dateAdded = new Date(entry.createdAt).toLocaleString();
-                row.innerHTML = `
-                    <td>${dateAdded}</td>
-                    <td>${entry.lastname}, ${entry.firstname} ${entry.middlename}</td>
-                    <td>${entry.status}</td>
-                    <td>${entry.college}</td>
-                    <td>${entry.cys}</td>
-                    <td>${entry.studentNumber}</td>
-                    <td>${entry.contactNumber}</td>
-                    <td>${entry.emailAddress}</td>
-                    <td>${entry.birthday}</td>
-                    <td>${entry.role}</td>
-                    <td>${entry.position}</td>
-                `;
-                registrationTable.appendChild(row);
-            });
-        }
-    
-        populateTable();
+    function populateTable() {
+        const registrations = JSON.parse(localStorage.getItem('registrations')) || [];
+        registrationTable.innerHTML = '';
+        registrations.forEach(entry => {
+            const row = document.createElement('tr');
+            const dateAdded = new Date(entry.createdAt).toLocaleString();
+            row.innerHTML = `
+                <td>${dateAdded}</td>
+                <td>${entry.lastname}, ${entry.firstname} ${entry.middlename}</td>
+                <td>${entry.status}</td>
+                <td>${entry.college}</td>
+                <td>${entry.cys}</td>
+                <td>${entry.studentNumber}</td>
+                <td>${entry.contactNumber}</td>
+                <td>${entry.emailAddress}</td>
+                <td>${entry.birthday}</td>
+                <td>${entry.role}</td>
+                <td>${entry.position}</td>
+            `;
+            registrationTable.appendChild(row);
+        });
+    }
+
+    populateTable();
 
     personalDetailsForm.addEventListener('submit', function(event) {
         event.preventDefault();
-        // Store personal details in session storage for use in membership details form
         sessionStorage.setItem('personalDetails', JSON.stringify({
             lastname: document.getElementById('lastname').value.toUpperCase(),
             firstname: document.getElementById('firstname').value,
@@ -189,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
             studentNumber: document.getElementById('studentNumber').value,
             contactNumber: document.getElementById('contactNumber').value,
             emailAddress: document.getElementById('emailAddress').value,
-            birthday: `${document.getElementById('birthday-month').value} ${document.getElementById('birthday-day').value}, ${document.getElementById('birthday-year').value}`
+            birthday: `${birthdayMonthInput.value} ${birthdayDayInput.value}, ${birthdayYearInput.value}`
         }));
         
         personalDetailsForm.style.display = 'none';
@@ -202,23 +205,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const role = roleSelect.value;
         const position = positionSelect.value;
         const personalDetails = JSON.parse(sessionStorage.getItem('personalDetails'));
-
+    
         if (!personalDetails) {
             alert('Personal details not found.');
             return;
         }
-
+    
         const combinedData = { ...personalDetails, role, position, createdAt: new Date() };
         const registrations = JSON.parse(localStorage.getItem('registrations')) || [];
         registrations.push(combinedData);
         localStorage.setItem('registrations', JSON.stringify(registrations));
         
         populateTable();
+        window.location.href = 'registration.html';
+                // Show the personal details form and hide the membership details form
+                personalDetailsForm.style.display = 'block';
+                membershipDetailsForm.style.display = 'none';
         
-        // Clear session storage
+        // Clear session storage and reset the forms
         sessionStorage.removeItem('personalDetails');
+        personalDetailsForm.reset();
+        membershipDetailsForm.reset();
+        
 
-        personalDetailsForm.style.display = 'block';
-        membershipDetailsForm.style.display = 'none';
     });
 });

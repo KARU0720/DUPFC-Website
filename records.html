@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +13,26 @@
             border-color: #4CAF50;
             box-shadow: 0 0 0 1px #4CAF50;
         }
+
         .btn-primary {
             background-color: #247011;
             color: #ffffff;
         }
+
         .btn-primary:hover {
             background-color: #007f00;
         }
+
         .btn-secondary {
             background-color: #ffffff;
             color: #247011;
             border: 1px solid #247011;
         }
+
         .btn-secondary:hover {
             background-color: #f0f0f0;
         }
+
         .form-input:focus {
             outline: none;
             box-shadow: 0 0 0 2px #4CAF50;
@@ -39,6 +45,7 @@
         .form-radio:checked:focus {
             box-shadow: 0 0 0 2px #4CAF50;
         }
+
         /* Additional styles for logos */
         .logo-main {
             position: absolute;
@@ -91,10 +98,9 @@
             text-transform: uppercase;
         }
 
-        .registration-table tbody tr:nth-child(even) {
+        .registration-table{
             background-color: #f9f9f9;
         }
-
         /* Background image */
         body {
             background-image: url('BACKGROUND.png');
@@ -111,6 +117,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
         <div class="flex flex-wrap items-center justify-between mx-auto p-4">
@@ -118,7 +125,6 @@
             <a href="home.html" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="LOGO with Name.png" class="h-20" alt="DUPFC Logo">
             </a>
-    
             <!-- Navigation Links -->
             <div class="hidden md:flex md:w-auto md:ml-auto">
                 <ul class="flex space-x-8 rtl:space-x-reverse p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -133,69 +139,60 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Registration Table -->
-        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4">
-            <table class="registration-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Date Added</th>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">College</th>
-                        <th scope="col">CYS</th>
-                        <th scope="col">Student Number</th>
-                        <th scope="col">Contact Number</th>
-                        <th scope="col">Email Address</th>
-                        <th scope="col">Birthday</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Position</th>
-                    </tr>
-                </thead>
-                <tbody id="registrationTable">
-                    <!-- Registration entries will be appended here -->
-                </tbody>
-            </table>
-        </div>
-    </main>
+    <div class="main-content">
+        <h1 class="text-2xl font-bold mb-4 text-center">Registration Records</h1>
+        <table class="registration-table">
+            <thead>
+                <tr>
+                    <th>Date Added</th>
+                    <th>Full Name</th>
+                    <th>Status</th>
+                    <th>College</th>
+                    <th>CYS</th>
+                    <th>Student Number</th>
+                    <th>Contact Number</th>
+                    <th>Email Address</th>
+                    <th>Birthday</th>
+                    <th>Role</th>
+                    <th>Position</th>
+                </tr>
+            </thead>
+            <tbody id="registrationTableBody">
+                <!-- Table rows will be populated here -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
-        // Function to fetch records and populate the table
-        async function fetchRecords() {
-            try {
-                const response = await fetch('http://localhost:3000/registrations'); // Adjust URL as needed
-                const data = await response.json();
+        document.addEventListener('DOMContentLoaded', function() {
+            function populateTable() {
+                const registrations = JSON.parse(localStorage.getItem('registrations')) || [];
+                const tableBody = document.getElementById('registrationTableBody');
+                tableBody.innerHTML = '';
                 
-                const tableBody = document.getElementById('registrationTable');
-                tableBody.innerHTML = ''; // Clear any existing content
-
-                data.forEach(record => {
+                registrations.forEach(entry => {
                     const row = document.createElement('tr');
-                    
+                    const dateAdded = new Date(entry.createdAt).toLocaleString();
                     row.innerHTML = `
-                        <td>${record.dateAdded}</td>
-                        <td>${record.fullName}</td>
-                        <td>${record.status}</td>
-                        <td>${record.college}</td>
-                        <td>${record.cys}</td>
-                        <td>${record.studentNumber}</td>
-                        <td>${record.contactNumber}</td>
-                        <td>${record.emailAddress}</td>
-                        <td>${record.birthday}</td>
-                        <td>${record.role}</td>
-                        <td>${record.position}</td>
+                        <td>${dateAdded}</td>
+                        <td>${entry.lastname}, ${entry.firstname} ${entry.middlename}</td>
+                        <td>${entry.status}</td>
+                        <td>${entry.college}</td>
+                        <td>${entry.cys}</td>
+                        <td>${entry.studentNumber}</td>
+                        <td>${entry.contactNumber}</td>
+                        <td>${entry.emailAddress}</td>
+                        <td>${entry.birthday}</td>
+                        <td>${entry.role}</td>
+                        <td>${entry.position}</td>
                     `;
-
                     tableBody.appendChild(row);
                 });
-            } catch (error) {
-                console.error('Error fetching records:', error);
             }
-        }
 
-        // Fetch records when the page loads
-        window.onload = fetchRecords;
+            populateTable();
+        });
     </script>
 </body>
+
 </html>
